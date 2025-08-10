@@ -4,7 +4,7 @@ A secure and customizable password generator built with **Next.js**, **TypeScrip
 Optimized for deployment on **Vercel**.
 
 ## 🌐 Live Demo
-[**Open the app**](https://password-generator-tan-ten.vercel.app/){:target="_blank"}
+Open the app: **[https://password-generator-tan-ten.vercel.app/](https://password-generator-tan-ten.vercel.app/)**
 
 ## 🚀 Features
 - Generate secure passwords from 4 to 64 characters.

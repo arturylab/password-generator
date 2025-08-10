@@ -3,6 +3,9 @@
 A secure and customizable password generator built with **Next.js**, **TypeScript**, **Tailwind CSS**, and **shadcn/ui**.  
 Optimized for deployment on **Vercel**.
 
+## 🌐 Live Demo
+[**Open the app**](https://password-generator-tan-ten.vercel.app/){:target="_blank"}
+
 ## 🚀 Features
 - Generate secure passwords from 4 to 64 characters.
 - Dynamic selection of:

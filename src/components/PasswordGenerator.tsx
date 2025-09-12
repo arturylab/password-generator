@@ -11,25 +11,58 @@ export default function PasswordGenerator() {
   const [includeLower, setIncludeLower] = useState<boolean>(true);
   const [includeUpper, setIncludeUpper] = useState<boolean>(true);
   const [includeNumbers, setIncludeNumbers] = useState<boolean>(true);
-  const [includeSymbols, setIncludeSymbols] = useState<boolean>(false);
+  const [includeSymbols, setIncludeSymbols] = useState<boolean>(true);
   const [password, setPassword] = useState<string>("");
   const [copied, setCopied] = useState<boolean>(false);
 
   const generatePassword = useCallback(() => {
+    const lowerChars = "abcdefghijklmnopqrstuvwxyz";
+    const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const numberChars = "0123456789";
+    const symbolChars = "!@#$%^&*()_+[]{}|;:,.<>?";
+
     let chars = "";
-    if (includeLower) chars += "abcdefghijklmnopqrstuvwxyz";
-    if (includeUpper) chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    if (includeNumbers) chars += "0123456789";
-    if (includeSymbols) chars += "!@#$%^&*()_+[]{}|;:,.<>?";
+    if (includeLower) chars += lowerChars;
+    if (includeUpper) chars += upperChars;
+    if (includeNumbers) chars += numberChars;
+    if (includeSymbols) chars += symbolChars;
 
     if (!chars) return;
 
     let generated = "";
-    for (let i = 0; i < length; i++) {
+
+    // Primero: generar un carácter de cada tipo requerido
+    if (includeLower) {
+      const randomIndex = Math.floor(Math.random() * lowerChars.length);
+      generated += lowerChars[randomIndex];
+    }
+    if (includeUpper) {
+      const randomIndex = Math.floor(Math.random() * upperChars.length);
+      generated += upperChars[randomIndex];
+    }
+    if (includeNumbers) {
+      const randomIndex = Math.floor(Math.random() * numberChars.length);
+      generated += numberChars[randomIndex];
+    }
+    if (includeSymbols) {
+      const randomIndex = Math.floor(Math.random() * symbolChars.length);
+      generated += symbolChars[randomIndex];
+    }
+
+    // Segundo: completar hasta la longitud deseada
+    for (let i = generated.length; i < length; i++) {
       const randomIndex = Math.floor(Math.random() * chars.length);
       generated += chars[randomIndex];
     }
-    setPassword(generated);
+
+    // Tercero: mezclar para que no estén ordenados
+    const arr = generated.split('');
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+
+    setPassword(arr.join(''));
   }, [length, includeLower, includeUpper, includeNumbers, includeSymbols]);
 
   const copyToClipboard = () => {
